@@ -1,0 +1,24 @@
+    <ngb-carousel [interval]="5000">
+        <ng-template ngbSlide>
+            <div class="picsum-img-wrapper">
+                <img src="../../assets/carousel-images/slide2.jpeg" alt="First Slide" style="width: 100%;height: 610px;">
+            </div>
+            <div class="carousel-caption">
+                <h1 id="p1">Marvel's Spiderman 2</h1>
+                <h3 class="animated-zoom">Now Available!!</h3>
+                <p>Be Greater. Together</p>
+            </div>
+        </ng-template>
+
+        <ng-template ngbSlide>
+            <div class="picsum-img-wrapper">
+                <img src="../../assets/carousel-images/slide3.jpeg" alt="Second Slide" style="width: 100%;height: 610px;">
+            </div>
+            <div class="carousel-caption">
+                <h1 id="p1">PS5 Pro</h1>
+                <h3 class="animated-zoom">Coming soon at GameVault</h3>
+            </div>
+        </ng-template>
+    </ngb-carousel>
+
+    <app-product-display></app-product-display>

@@ -1,0 +1,55 @@
+<!-- admin-products.component.html -->
+<body>
+    <section class="h-100 h-custom">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body p-4">
+                            <h5 class="mb-4">Manage Products</h5>
+                            <hr>
+
+                            <div *ngIf="loading" class="text-center">
+                                <p>Loading products...</p>
+                            </div>
+
+                            <div *ngIf="errorMessage" class="alert alert-danger">
+                                {{ errorMessage }}
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table" *ngIf="!loading && !errorMessage">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Product Name</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let product of products; let i = index">
+                                            <th scope="row">{{ i + 1 }}</th>
+                                            <td>{{ product.name }}</td>
+                                            <td>${{ product.price }}</td>
+                                            <td>
+                                                <a  [routerLink]="['/update-product', product.id]" class="btn btn-warning btn-sm me-2">Update</a>
+                                                <button (click)="deleteProduct(product.id)" class="btn btn-danger btn-sm">
+                                                    <i class="bi bi-trash" title="delete"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="mt-4">
+                                <a [routerLink]="['/add-product']" class="btn btn-primary">Add New Product</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>

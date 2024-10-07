@@ -1,0 +1,130 @@
+body {
+    background-color: black;
+    color: white;
+  }
+  
+  .container-fluid {
+    background-color: black;
+    color: white;
+  }
+  
+  .category-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .product-category {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px 0;
+    height: 400px;
+    white-space: nowrap;
+    align-items: center;
+  }
+  
+  .product-category::-webkit-scrollbar {
+    display: none; /* Hide scrollbar */
+  }
+  
+  .product-category {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .product-card {
+    flex: 0 0 auto;
+    width: 200px;
+    height: 300px;
+    margin: 10px;
+    transition: transform 0.3s, background-color 0.3s;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #444;
+    position: relative;
+  }
+  
+  .product-card img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.15);
+    background-color: #555;
+  }
+  
+  .info-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    text-align: center;
+  }
+  
+  .product-card:hover .info-overlay {
+    opacity: 1;
+  }
+  
+  .add-to-cart {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+  }
+  
+  .like-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    color: white;
+  }
+  
+  .explore-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .explore-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .arrow-left,
+  .arrow-right {
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin: 10px;
+  }
+  
+  .arrow-left:hover,
+  .arrow-right:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: scale(1.1);
+  }
+  

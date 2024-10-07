@@ -1,0 +1,20 @@
+<div class="container-fluid">
+    <div *ngFor="let category of categories">
+      <h2>{{ category.name }}</h2>
+      <div class="category-container">
+        <button class="arrow-left" (click)="scrollLeft(categoryContainer)">&#10094;</button>
+        <div class="product-category" #categoryContainer>
+          <div class="product-card" *ngFor="let product of getProductsByCategory(category.id)">
+            <img [src]="'https://via.placeholder.com/150'" alt="{{ product.name }}" />
+            <h3>{{ product.name }}</h3>
+            <div class="info-overlay">{{ product.description }}</div>
+            <button class="add-to-cart" (click)="addToCart(product)">Add to Cart</button>
+            <button class="like-button"><i class="bi bi-heart"></i></button>
+          </div>
+        </div>
+        <button class="arrow-right" (click)="scrollRight(categoryContainer)">&#10095;</button>
+      </div>
+      <button class="explore-button">Explore More {{ category.name }}</button>
+    </div>
+  </div>
+  

@@ -1,0 +1,70 @@
+/* admin-products.component.css */
+.table th, .table td {
+    vertical-align: middle;
+}
+body {
+    background-image: url('../../assets/register-background.jpg'); /* Adjust the path to your image */
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(5px); /* Adjust the blur effect */
+    height: 100vh; /* Ensure full height */
+     /* Remove default margin */
+    margin-top: 20px;
+    overflow: hidden; /* Prevent overflow */
+}
+
+.card{
+    background-color: rgb(255, 255, 255, 0.8);
+    border-radius: 20px;
+}
+
+/* Styles for the product table */
+.table {
+    width: 100%; /* Full width of the container */
+    margin-bottom: 1rem; /* Space below the table */
+    color: #212529; /* Default text color */
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    border-radius: 20px; /* Rounded corners */
+    overflow: hidden; /* Ensure child elements respect border-radius */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+}
+
+.table th,
+.table td {
+    padding: 1rem; /* Padding inside table cells */
+    vertical-align: middle; /* Align items in the middle */
+    border-top: 1px solid #dee2e6; /* Top border for cells */
+}
+
+.table thead th {
+    background-color: #007bff; /* Background color for the header */
+    color: white; /* Text color for the header */
+}
+
+.table tbody tr{
+    background-color: #f1f1f1; /* Hover effect for rows */
+}
+
+.btn {
+    margin: 0; /* Remove margin for buttons */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .table {
+        font-size: 0.9rem; /* Smaller font size for mobile */
+    }
+
+    .table th, .table td {
+        padding: 0.5rem; /* Less padding for mobile */
+    }
+}
+.table-responsive {
+    max-height: 475px; /* Set the maximum height you want */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Optional: Style for the scrollbar */
+.table-responsive::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}

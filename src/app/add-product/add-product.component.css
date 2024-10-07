@@ -1,0 +1,41 @@
+body {
+    background-image: url('../../assets/register-background.jpg'); /* Adjust the path to your image */
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(5px); /* Adjust the blur effect */
+    height: 100vh; /* Ensure full height */
+    margin: 0; /* Remove default margin */
+    overflow: hidden; /* Prevent overflow */
+}
+
+.container {
+    position: relative; /* Positioning for the container */
+    z-index: 1; /* Bring the container above the blurred background */
+    max-width: 500px; /* Adjust width as needed */
+    margin: auto; /* Center the container */
+}
+
+form {
+    background-color: rgba(30, 30, 30, 0.8); /* Semi-transparent dark background for the form */
+    padding: 20px; /* Add some padding */
+    border-radius: 0.5rem; /* Rounded corners */
+}
+
+.container {
+    max-width: 500px; /* Decreased max width */
+    margin: auto; /* Center the container */
+}
+
+.form-control, .form-select {
+    border-radius: 0.5rem; /* Rounded corners for inputs */
+    transition: border-color 0.3s ease; /* Smooth transition */
+}
+
+.btn-primary {
+    background-color: #007bff; /* Bootstrap primary color */
+    border: none; /* Remove default border */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}

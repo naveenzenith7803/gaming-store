@@ -1,0 +1,44 @@
+<!-- add-product.component.html -->
+<div class="container mt-3">
+    <h2 class="text-center text-primary mb-4">Add Product</h2>
+    <form (ngSubmit)="onSubmit(productForm)" #productForm="ngForm" class="p-4 rounded shadow">
+        
+        <div class="mb-3">
+            <input type="text" placeholder="Product Name" id="name" name="name" class="form-control bg-light text-dark" required ngModel>
+        </div>
+        
+        <div class="mb-3">
+            <input type="number" placeholder="Price" id="price" name="price" class="form-control bg-light text-dark" required ngModel>
+        </div>
+        
+        <div class="mb-3">
+            <input type="number" placeholder="Quantity" id="quantity" name="quantity" class="form-control bg-light text-dark" required ngModel>
+        </div>
+
+        <div class="mb-3">
+            <textarea id="description" placeholder="Description" name="description" class="form-control bg-light text-dark" required ngModel></textarea>
+        </div>
+
+        <div class="mb-3">
+            <input type="url" id="imageUrl" placeholder="Image URL" name="imageUrl" class="form-control bg-light text-dark" required ngModel>
+            <!-- Error message for invalid image URL -->
+            <div *ngIf="imageUrlError" class="text-danger mt-2">{{ imageUrlError }}</div>
+        </div>
+
+        <div class="mb-3">
+            <select class="form-select bg-light text-dark" id="category" name="category" required (change)="onCategoryChange($event)" ngModel>
+                <option value="" disabled selected>Select Main Category</option>
+                <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+            </select>
+        </div>
+
+        <div class="mb-3" *ngIf="selectedSubcategories.length">
+            <select class="form-select bg-light text-dark" id="subcategory" name="subcategory" required ngModel [disabled]="!selectedSubcategories.length" (change)="onSubcategoryChange($event)">
+                <option value="" disabled selected>Select Subcategory</option>
+                <option *ngFor="let subcategory of selectedSubcategories" [value]="subcategory.id">{{ subcategory.name }}</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 rounded">Add Product</button>
+    </form>
+</div>

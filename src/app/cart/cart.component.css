@@ -1,0 +1,53 @@
+body {
+    height: 100vh; /* Ensure the body takes the full height */
+    margin: 0; /* Remove default margin */
+    background-image: url('../../assets/register-background.jpg'); /* Adjust this path to your image */
+    background-size: cover;
+    background-position: center;
+}
+
+.container {
+    max-width: 900px; /* Increase max-width to fit the new layout */
+    backdrop-filter: blur(5px);
+}
+
+.card {
+    border-radius: 0.5rem; /* Slightly rounded corners */
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    border: none; /* Remove card border */
+}
+
+.card-title {
+    font-weight: bold; /* Make the title bold */
+    color: #000; /* Black color for titles */
+}
+
+.card-text {
+    color: #000; /* Black text for card text */
+}
+
+.btn-info {
+    background-color: #007bff; /* Adjust button color */
+    color: white; /* Ensure text is white on buttons */
+}
+
+.img-fluid {
+    max-width: 100%; /* Ensure images are responsive */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.text-white {
+    color: #000; /* Use this for white text in specific areas */
+}
+
+#card-details {
+    background-color: rgb(13, 119, 233);
+    border-radius: 25px;
+}
+
+.cart-items-container {
+    max-height: 450px; /* Adjust height as needed */
+    overflow-y: auto; /* Enables vertical scrolling */
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+    border-radius: 20px;
+}

@@ -1,0 +1,12 @@
+@keyframes zoomInOut {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1); /* Change scale for zoom effect */
+    }
+}
+
+.animated-zoom {
+    animation: zoomInOut 3s ease-in-out infinite; /* Adjust duration as needed */
+}

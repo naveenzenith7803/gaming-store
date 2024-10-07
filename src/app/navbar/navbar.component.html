@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <!-- Brand Logo -->
+    <a class="navbar-brand" href="#">
+      <img src="assets/logo.png" alt="GameNation Logo" height="40" />
+    </a>
+
+    <!-- Toggler for mobile view -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar items -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!-- Categories with dynamic subcategories -->
+        <li *ngFor="let category of categories" class="nav-item dropdown" [ngClass]="{'dropdown': category.subcategories.length > 0}">
+          <a *ngIf="category.subcategories.length > 0" class="nav-link dropdown-toggle" href="#" id="{{category.name}}Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{category.name}}
+          </a>
+          <a *ngIf="category.subcategories.length === 0" class="nav-link" href="#">
+            {{category.name}}
+          </a>
+
+          <!-- Dropdown items -->
+          <ul *ngIf="category.subcategories.length > 0" class="dropdown-menu bg-dark" [attr.aria-labelledby]="category.name + 'Dropdown'">
+            <li *ngFor="let sub of category.subcategories">
+              <a class="dropdown-item text-light" href="#">{{sub}}</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Search box -->
+      <form class="d-flex me-3" style="flex-grow: 1; max-width: 300px;" (ngSubmit)="onSearch(searchInput)">
+          <input type="text" style="border-radius: 10px; height: 40px; margin-top: -2px; padding-left: 10px;"
+                 matInput
+                 placeholder="Search" 
+                 aria-label="Search"
+                 [(ngModel)]="searchInput"
+                 name="searchInput"  
+                 (input)="filterOptions()"
+                 [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" >
+            <mat-option *ngFor="let option of filteredOptions" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
+        <button class="btn btn-outline-light ms-2 mt-0" type="submit">
+          <i class="bi bi-search "></i>
+        </button>
+      </form>
+
+      <!-- Login button with popover -->
+      <button class="btn btn-outline-light ms-3" routerLink="/login" type="button">
+        <i class="bi bi-person-fill"></i>
+      </button>
+
+
+      <!-- Cart button -->
+      <button class="btn btn-outline-light ms-2 position-relative" type="button"  routerLink="/cart">
+        <i class="bi bi-cart2"></i>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{cartItemCount}}</span>
+      </button>
+    </div>
+  </div>
+</nav>

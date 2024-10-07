@@ -1,0 +1,123 @@
+<body>
+    <section style="background-image: url('/assets/register-background.jpg'); background-size: cover; background-position: center;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body p-4">
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <h5 class="mb-3">
+                                        <a href="#!" class="text-body">
+                                            <i class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping
+                                        </a>
+                                    </h5>
+                                    <hr>
+
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <div>
+                                            <p class="mb-1">Shopping cart</p>
+                                            <p class="mb-0">You have {{ cartItems.length }} items in your cart</p>
+                                        </div>
+                                        <div>
+                                            <p class="mb-0"><span class="text-muted">Sort by:</span> 
+                                                <select (change)="onSortChange($event)" class="form-select form-select-sm" aria-label="Sort by Price">
+                                                <option value="asc">Price: Low to High</option>
+                                                <option value="desc">Price: High to Low</option>
+                                                </select>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="cart-items-container">
+                                    <div *ngFor="let item of cartItems" class="card mb-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="d-flex flex-row align-items-center">
+                                                    <div>
+                                                        <img [src]="item.productImage" class="img-fluid rounded-3" alt="{{ item.productName }}" style="width: 65px;">
+                                                    </div>
+                                                    <div class="ms-3">
+                                                        <h5 class="text-black">{{ item.productName }}</h5>
+                                                        <p class="small mb-0 text-white">Price: ${{ item.productPrice }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex flex-row align-items-center">
+                                                    <div class="d-flex align-items-center me-3">
+                                                        <button class="btn btn-outline-primary me-2" (click)="decreaseQuantity(item)" >-</button>
+                                                        <span class="text-black">{{ item.quantity }}</span>
+                                                        <button class="btn btn-outline-primary ms-2" (click)="increaseQuantity(item)" >+</button>
+                                                    </div>
+                                                    <div >
+                                                        <h5 class="mb-0 text-black">${{ item.productPrice * item.quantity }}</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-5">
+                                    <div class="card bg-primary text-white rounded-3">
+                                        <div class="card-body" id="card-details">
+                                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                                <h5 class="mb-0" style="font-size: 1.2rem;">Card details</h5>
+                                                <img src="" class="img-fluid rounded-3" style="width: 45px;" alt="Avatar">
+                                            </div>
+                                            <form class="mt-4">
+                                                <p class="small mb-2" style="font-weight: bold;">Select Card Type</p>
+                                                <select class="form-select form-select-lg mb-2" aria-label="Card Type" style="font-size: 0.9rem; background-color: rgba(255, 255, 255);">
+                                                    <option selected>Choose card type</option>
+                                                    <option value="visa">Visa</option>
+                                                    <option value="mastercard">MasterCard</option>
+                                                    <option value="rupay">RuPay</option>
+                                                    <option value="amex">American Express</option>
+                                                </select>
+
+                                                <div class="form-outline form-white mb-2">
+                                                    <label class="form-label" for="typeName" style="font-weight: bold;">Cardholder's Name</label>
+                                                    <input type="text" id="typeName" class="form-control form-control-lg" placeholder="Cardholder's Name" style="font-size: 0.9rem;" />
+                                                </div>
+
+                                                <div class="form-outline form-white mb-2">
+                                                    <label class="form-label" for="typeText" style="font-weight: bold;">Card Number</label>
+                                                    <input type="text" id="typeText" class="form-control form-control-lg" placeholder="---- ---- ---- ----" minlength="19" maxlength="19" style="font-size: 0.9rem;" />
+                                                </div>
+
+                                                <div class="row mb-4">
+                                                    <div class="col-md-6">
+                                                        <div class="form-outline form-white">
+                                                            <label class="form-label" for="typeExp" style="font-weight: bold;">Expiration</label>
+                                                            <input type="text" id="typeExp" class="form-control form-control-lg" placeholder="MM/YYYY" minlength="7" maxlength="7" style="font-size: 0.9rem;" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-outline form-white">
+                                                            <label class="form-label" for="typeCvv" style="font-weight: bold;">CVV</label>
+                                                            <input type="password" id="typeCvv" class="form-control form-control-lg" placeholder="&#9679;&#9679;&#9679;" minlength="3" maxlength="3" style="font-size: 0.9rem;" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div class="card bg-primary text-white rounded-3 mt-4">
+                                        <div class="card-body" id="card-details">
+                                            <h5 class="mb-0">Total Price: ${{ totalPrice }}</h5>
+                                            <button type="button" class="btn btn-info btn-block btn-lg mt-4">
+                                                <div class="d-flex justify-content-between">
+                                                    <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
