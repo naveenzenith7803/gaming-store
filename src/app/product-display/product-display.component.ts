@@ -4,7 +4,7 @@ import { ImageService } from '../services/imageService/image-service.service';
 import { CategoryService } from '../services/categoryService/category-service.service';
 import { Product } from '../models/productModel/product';
 import { RouterLink } from '@angular/router';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Category } from '../models/categoryModel/category';
 import { CartItem } from '../models/cartItemModel/cart-item';
 import { CartItemService } from '../services/cartItemService/cart-item-service.service';
@@ -13,7 +13,7 @@ import { CartService } from '../services/cartService/cart-service.service';
 @Component({
   selector: 'app-product-display',
   standalone: true,
-  imports: [RouterLink, NgFor],
+  imports: [RouterLink, NgFor, NgIf],
   templateUrl: './product-display.component.html',
   styleUrls: ['./product-display.component.css']
 })
@@ -31,8 +31,11 @@ export class ProductDisplayComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log("getting products");
     this.productService.getAllProducts().subscribe((products) => {
       this.products = products;
+      console.log("before");
+      console.log(this.products);
       this.products.forEach((product) => {
         this.loadImage(product);
         this.loadCategory(product);
@@ -41,7 +44,10 @@ export class ProductDisplayComponent implements OnInit {
 
     this.categoryService.getAllCategories().subscribe((categories) => {
       this.categories = categories;
-      this.groupProductsByCategory(); // Group products once categories are fetched
+      setTimeout(() => {
+        this.groupProductsByCategory();
+      }, 100);
+       
     });
   }
 
@@ -59,6 +65,8 @@ export class ProductDisplayComponent implements OnInit {
 
   groupProductsByCategory() {
     this.categories.forEach(category => {
+      console.log("after");
+      console.log(this.products);
       this.categorizedProducts[category.id] = this.products.filter(product => product.categoryId === category.id);
     });
   }
@@ -69,6 +77,7 @@ export class ProductDisplayComponent implements OnInit {
 
   scrollLeft(container: HTMLElement) {
     container.scrollBy({ left: -150, behavior: 'smooth' });
+    
   }
   
   scrollRight(container: HTMLElement) {
