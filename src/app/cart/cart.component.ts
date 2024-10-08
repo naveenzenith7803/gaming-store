@@ -28,7 +28,6 @@ export class CartComponent implements OnInit {
     private cartItemService: CartItemService, 
     private productService: ProductService,
     private imageService: ImageService,
-    private navbarComponent: NavbarComponent
   ) {}
 
   ngOnInit() {

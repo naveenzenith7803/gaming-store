@@ -9,6 +9,7 @@ import { Category } from '../models/categoryModel/category';
 import { CartItem } from '../models/cartItemModel/cart-item';
 import { CartItemService } from '../services/cartItemService/cart-item-service.service';
 import { CartService } from '../services/cartService/cart-service.service';
+import { UserService } from '../services/userService/user-service.service';
 
 @Component({
   selector: 'app-product-display',
@@ -21,21 +22,22 @@ export class ProductDisplayComponent implements OnInit {
   products: Product[] = [];
   categories: Category[] = [];
   categorizedProducts: { [key: number]: Product[] } = {}; // To hold products by category
+  cartId:number;
+  userId: number | null = null;
+  
 
   constructor(
     private productService: ProductService,
     private imageService: ImageService,
     private categoryService: CategoryService,
     private cartItemService: CartItemService,
-    private cartService: CartService
+    private cartService: CartService,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
-    console.log("getting products");
     this.productService.getAllProducts().subscribe((products) => {
       this.products = products;
-      console.log("before");
-      console.log(this.products);
       this.products.forEach((product) => {
         this.loadImage(product);
         this.loadCategory(product);
@@ -46,9 +48,31 @@ export class ProductDisplayComponent implements OnInit {
       this.categories = categories;
       setTimeout(() => {
         this.groupProductsByCategory();
-      }, 100);
+      }, 500);
        
     });
+
+    this.userService.userId$.subscribe(userId => {
+      this.userId = userId;
+      if (this.userId) {
+        this.loadCart();
+      }
+    });
+
+  }
+
+  loadCart() {
+    if (this.userId) {
+      this.cartService.getCartByUserId(this.userId).subscribe(cart => {
+        if (cart) {
+          this.cartId = cart.id;
+        } else {
+          console.error('No cart found for user ID:', this.userId);
+        }
+      }, error => {
+        console.error('Error fetching cart by user ID:', error);
+      });
+    }
   }
 
   loadImage(product: Product) {
@@ -65,8 +89,6 @@ export class ProductDisplayComponent implements OnInit {
 
   groupProductsByCategory() {
     this.categories.forEach(category => {
-      console.log("after");
-      console.log(this.products);
       this.categorizedProducts[category.id] = this.products.filter(product => product.categoryId === category.id);
     });
   }
@@ -86,7 +108,7 @@ export class ProductDisplayComponent implements OnInit {
 
   addToCart(product: Product) {
     const cartItem: CartItem = {
-      cartId: 1, // Set as static for now; replace with user's cart ID
+      cartId: this.cartId, // Set as static for now; replace with user's cart ID
       productId: product.id, 
       quantity: 1 // Initialize quantity
     };

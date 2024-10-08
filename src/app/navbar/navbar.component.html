@@ -52,9 +52,17 @@
       </form>
 
       <!-- Login button with popover -->
-      <button class="btn btn-outline-light ms-3" routerLink="/login" type="button">
+      <button class="btn btn-outline-light ms-3" routerLink="/login" type="button" *ngIf="!isLoggedIn">
         <i class="bi bi-person-fill"></i>
       </button>
+      <div class="dropdown" *ngIf="isLoggedIn">
+        <button class="btn btn-outline-light ms-3 dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-person-fill"></i>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <li><a class="dropdown-item" (click)="logout()">{{userName}} Logout</a></li>
+        </ul>
+      </div>
 
 
       <!-- Cart button -->

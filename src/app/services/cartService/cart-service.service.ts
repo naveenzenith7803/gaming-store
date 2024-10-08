@@ -1,22 +1,28 @@
 import { Injectable } from '@angular/core';
 import { CartItem } from '../../models/cartItemModel/cart-item';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { CartItemService } from '../cartItemService/cart-item-service.service';
+import { Cart } from '../../models/cartModel/cart-model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
 
-  private userId = 1; // Simulate logged-in user ID
+  private userId: number = Number(localStorage.getItem('userId')); 
   private cartId: number | null = null; // This will hold the user's cart ID
   private cartItems: CartItem[] = [];
   private cartItemsSubject = new BehaviorSubject<CartItem[]>(this.cartItems);
   public cartItems$ = this.cartItemsSubject.asObservable();
 
+  private apiUrl = 'http://localhost:8082/api/carts';
+
+
+
   
 
-  constructor(private cartItemService: CartItemService) {
+  constructor(private cartItemService: CartItemService, private http: HttpClient) {
     this.fetchCartId(); // Fetch cart ID based on user ID
   }
 
@@ -26,9 +32,16 @@ export class CartService {
   }
 
   private fetchCartId() {
-    // Simulate fetching cart ID based on user ID
-    this.cartId = this.userId; // For now, set it directly; replace with actual fetch logic
-    this.loadCartItems(); // Load existing cart items when cart ID is fetched
+    this.getCartByUserId(this.userId).subscribe(cart => {
+      if (cart) {
+        this.cartId = cart.id; 
+        this.loadCartItems(); 
+      } else {
+        console.error('No cart found for user ID:', this.userId);
+      }
+    }, error => {
+      console.error('Error fetching cart by user ID:', error);
+    });
   }
 
   private loadCartItems() {
@@ -59,6 +72,10 @@ export class CartService {
 
   getCartItems() {
     return this.cartItems;
+  }
+
+  getCartByUserId(id: number): Observable<Cart> {
+    return this.http.get<Cart>(`${this.apiUrl}/user/${id}`);
   }
 
   clearCart() {
