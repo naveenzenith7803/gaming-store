@@ -28,7 +28,7 @@
         <div class="mb-3">
             <select class="form-select bg-light text-dark" id="category" name="category" required (change)="onCategoryChange($event)" ngModel>
                 <option value="" disabled selected>Select Main Category</option>
-                <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+                <option *ngFor="let category of filteredCategories" [value]="category.name">{{ category.name }}</option>
             </select>
         </div>
 

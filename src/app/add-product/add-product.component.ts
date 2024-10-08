@@ -17,13 +17,14 @@ import { Image } from '../models/imageModel/image';
 })
 export class AddProductComponent implements OnInit {
   categories: Category[] = [];
+  filteredCategories: Category[]=[];
   images: Image[] = [];
   
   selectedSubcategories: Category[] = [];
   selectedCategoryId: number | null = null;
   selectedSubcategoryId: number | null = null;
 
-  imageUrlError: string | null = null; // For storing the error message
+  imageUrlError: string | null = null; 
 
   constructor(
     private productService: ProductService,
@@ -39,6 +40,7 @@ export class AddProductComponent implements OnInit {
   fetchCategories() {
     this.categoryService.getAllCategories().subscribe(categories => {
       this.categories = categories;
+      this.filteredCategories=categories.filter(cat=>cat.parentCategoryId==null);
       console.log(categories);
     });
   }
@@ -55,13 +57,13 @@ export class AddProductComponent implements OnInit {
 
     if (selectedCategory) {
       this.selectedCategoryId = selectedCategory.id;
-      this.selectedSubcategoryId = null; // Reset selected subcategory
+      this.selectedSubcategoryId = null; 
 
       // Find child categories
       this.selectedSubcategories = this.categories.filter(cat => cat.parentCategoryId === this.selectedCategoryId);
     } else {
       this.selectedSubcategories = [];
-      this.selectedCategoryId = null; // Reset if category not found
+      this.selectedCategoryId = null; 
     }
   }
 
@@ -70,7 +72,7 @@ export class AddProductComponent implements OnInit {
   }
 
   onSubmit(productForm: NgForm) {
-    this.imageUrlError = null; // Reset the error message
+    this.imageUrlError = null; 
 
     if (productForm.valid) {
       const imageUrl = productForm.value.imageUrl;
@@ -82,16 +84,16 @@ export class AddProductComponent implements OnInit {
       // Check if image ID is valid
       if (!imageId) {
         this.imageUrlError = 'Image URL is invalid';
-        return; // Stop further execution
+        return; 
       }
 
       const newProduct: Product = {
-        id: 0, // Backend will assign the ID
+        id: 0, 
         name: productForm.value.name,
         description: productForm.value.description,
         price: productForm.value.price,
         quantity: productForm.value.quantity,
-        categoryId: this.selectedSubcategoryId || this.selectedCategoryId, // Use subcategory if selected
+        categoryId: this.selectedSubcategoryId || this.selectedCategoryId, 
         imageId: imageId
       };
 

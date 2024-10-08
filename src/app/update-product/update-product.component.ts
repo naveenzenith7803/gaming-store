@@ -1,63 +1,120 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
+import { ProductService } from '../services/productService/product-service.service';
+import { CategoryService } from '../services/categoryService/category-service.service';
+import { ImageService } from '../services/imageService/image-service.service';
+import { Product } from '../models/productModel/product';
+import { Category } from '../models/categoryModel/category';
+import { Image } from '../models/imageModel/image';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-update-product',
+  selector: 'app-add-product',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './update-product.component.html',
-  styleUrl: './update-product.component.css'
+  styleUrls: ['./update-product.component.css']
 })
 export class UpdateProductComponent implements OnInit {
-  product: any; // Replace with your product interface
-  categories = []; // Dummy data, replace with actual categories
-  selectedCategory: string;
-  selectedSubcategories: string[] = []; // Replace with actual subcategories
+  categories: Category[] = [];
+  images: Image[] = [];
+  
+  selectedSubcategories: Category[] = [];
+  selectedCategoryId: number | null = null;
+  selectedSubcategoryId: number | null = null;
+  product: Product = { id:0, name: '', price: 0, quantity: 0, description: '', imageId: 0, categoryId: 0 }; // Initialize with default values
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+
+  imageUrlError: string | null = null; // For storing the error message
+
+  constructor(
+    private productService: ProductService,
+    private categoryService: CategoryService,
+    private imageService: ImageService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    // Get the product ID from the route parameters
-    const productId = this.route.snapshot.paramMap.get('id');
-
-    // Replace this with your logic to fetch the product details based on the ID
-    this.product = this.getProductById(productId); // Replace with actual service call
-
-    // Set selected category and subcategories based on the product
-    this.selectedCategory = this.product.category;
-    this.selectedSubcategories = this.getSubcategories(this.selectedCategory);
+    const productId = +this.route.snapshot.paramMap.get('id')!;
+    this.loadProduct(productId);
+    this.loadCategories();
+    this.fetchImages();
   }
 
-  getProductById(id: string) {
-    // Dummy product data, replace with actual fetch logic
-    return {
-      id: id,
-      name: 'Sample Product',
-      price: 100,
-      quantity: 10,
-      description: 'This is a sample product description.',
-      imageUrl: 'http://example.com/sample.jpg',
-      category: 'Electronics',
-      subcategory: 'Mobiles'
-    };
+  loadProduct(id: number) {
+    this.productService.getProductById(id).subscribe({
+      next: (data) => (this.product = data),
+      error: () => this.router.navigate(['/admin-products']),
+    });
   }
 
-  getSubcategories(category: string) {
-    // Replace with actual logic to fetch subcategories based on the category
-    return category === 'Electronics' ? ['Mobiles', 'Laptops', 'Tablets'] : [];
+  loadCategories() {
+    this.categoryService.getAllCategories().subscribe((data) => {
+      this.categories = data;
+      const Category = this.categories.find(cat => cat.id === this.product.categoryId);
+      this.product.categoryName=Category.name;
+    });
   }
 
-  onCategoryChange(event: any) {
-    this.selectedCategory = event.target.value;
-    this.selectedSubcategories = this.getSubcategories(this.selectedCategory);
+  fetchImages() {
+    this.imageService.getAllImages().subscribe(images => {
+      this.images = images;
+      const image = this.images.find(img => img.id === this.product.imageId);
+      this.product.imageUrl=image.url;
+    });
   }
 
-  onUpdate(form: any) {
-    if (form.valid) {
-      // Handle update logic here (e.g., call a service to update the product)
-      console.log('Product updated:', form.value);
+  onCategoryChange(event: Event): void {
+    const selectedCategoryName = (event.target as HTMLSelectElement).value;
+    const selectedCategory = this.categories.find(cat => cat.name === selectedCategoryName);
+    
+
+    if (selectedCategory) {
+      this.selectedCategoryId = selectedCategory.id;
+      this.product.categoryId=this.selectedCategoryId;
+      this.selectedSubcategoryId = null; // Reset selected subcategory
+
+      // Find child categories
+      this.selectedSubcategories = this.categories.filter(cat => cat.parentCategoryId === this.selectedCategoryId);
+    } else {
+      this.selectedSubcategories = [];
+      this.selectedCategoryId = null; // Reset if category not found
+    }
+  }
+
+  onSubcategoryChange(event: Event): void {
+    this.selectedSubcategoryId = +((event.target as HTMLSelectElement).value);
+    this.product.categoryId=this.selectedCategoryId;
+  }
+
+  onSubmit(productForm: NgForm) {
+    this.imageUrlError = null; // Reset the error message
+
+    if (productForm.valid) {
+      const imageUrl = productForm.value.imageUrl;
+
+      // Find matching image ID
+      const image = this.images.find(img => img.url === imageUrl);
+      const imageId = image ? image.id : null;
+      
+      
+      this.product.imageId=imageId;
+
+      // Check if image ID is valid
+      if (!imageId) {
+        this.imageUrlError = 'Image URL is invalid';
+        return; // Stop further execution
+      }
+      
+      this.productService.updateProduct(this.product.id, this.product).subscribe({
+        next: () => this.router.navigate(['/admin-products']),
+        error: (err) => console.error(err),
+      });
+      console.log("Product Updated");
+    } else {
+      console.log('Form is invalid');
     }
   }
 }
