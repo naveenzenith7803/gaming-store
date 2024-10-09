@@ -22,3 +22,38 @@
     </ngb-carousel>
 
     <app-product-display></app-product-display>
+    <div class="featured-game-container">
+        <div class="game-section">
+            <div class="game-details">
+                <h2>Mortal Kombat 11</h2>
+                <!-- <p>This is the description for Game One.</p> -->
+                <button (click)="exploreMore('Game One')">Explore More</button>
+            </div>
+            <div class="game-video">
+                <iframe
+                    src="https://www.youtube.com/embed/mWytXS73aFI?autoplay=1&mute=1"
+                    frameborder="0"
+                    allow="autoplay; encrypted-media"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    
+        <div class="game-section reverse">
+            <div class="game-details">
+                <h2>Call of Duty: Black Ops 6</h2>
+                <!-- <p>This is the description for Game Two.</p> -->
+                <button (click)="exploreMore('Game Two')">Explore More</button>
+            </div>
+            <div class="game-video">
+                <iframe
+                    src="https://www.youtube.com/embed/h0uxvKUjsj4?autoplay=1&mute=1"
+                    frameborder="0"
+                    allow="autoplay; encrypted-media"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    

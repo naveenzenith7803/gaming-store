@@ -1,0 +1,71 @@
+<div class="product-detail-container">
+    <img [src]="product.imageUrl || 'https://via.placeholder.com/400'" class="product-image" />
+    
+    <div class="product-info">
+        <h1>{{ product.name }}</h1>
+        <h2 class="product-price">Rs {{ product.price | number:'1.2-2' }}</h2>
+        <p class="product-description">{{ product.description }}</p>
+        
+        <div class="quantity-container">
+            <button class="quantity-btn" (click)="changeQuantity(-1)" [disabled]="reqQuantity <= 1">-</button>
+            <input type="text" [(ngModel)]="reqQuantity" [max]="product.quantity" min="1" class="quantity-input" />
+            <button class="quantity-btn" (click)="changeQuantity(1)" [disabled]="reqQuantity >= product.quantity">+</button>
+        </div>
+  
+        <div class="button-container">
+            <button class="add-to-cart" (click)="addToCart(product)" [disabled]="reqQuantity > product.quantity || reqQuantity < 1">
+                Add to Cart
+            </button>
+            <button class="wishlist-button" (click)="toggleWishlist(product)">
+                <i class="bi bi-heart-fill"></i> Wishlist
+            </button>
+        </div>
+    </div>
+  </div>
+  
+  <!-- Popup for adding to cart confirmation -->
+  <div [ngClass]="{'popup': true, 'show': showPopup}" *ngIf="showPopup">
+    <img [src]="product.imageUrl" class="popup-image" />
+    <p>Added {{ reqQuantity }} of {{ product.name }} to cart!</p>
+  </div>
+  
+  <!-- FAQs Section -->
+  <div class="faqs-container">
+    <h3>Frequently Asked Questions</h3>
+    <div class="faq-item" (click)="toggleFaq(1)" [class.open]="activeFaq === 1">
+        <div class="faq-header">
+            <h4>Q: What is your return policy?</h4>
+            <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-content" *ngIf="activeFaq === 1">
+            <p>A: We offer a 30-day return policy on all unused products. Please ensure items are in original condition.</p>
+        </div>
+    </div>
+    <div class="faq-item" (click)="toggleFaq(2)" [class.open]="activeFaq === 2">
+        <div class="faq-header">
+            <h4>Q: Do you offer international shipping?</h4>
+            <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-content" *ngIf="activeFaq === 2">
+            <p>A: Yes, we ship to select international locations. Please check our shipping policy for details.</p>
+        </div>
+    </div>
+    <div class="faq-item" (click)="toggleFaq(3)" [class.open]="activeFaq === 3">
+        <div class="faq-header">
+            <h4>Q: How do I track my order?</h4>
+            <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-content" *ngIf="activeFaq === 3">
+            <p>A: You will receive an email with tracking information once your order has shipped.</p>
+        </div>
+    </div>
+    <div class="faq-item" (click)="toggleFaq(4)" [class.open]="activeFaq === 4">
+        <div class="faq-header">
+            <h4>Q: Can I cancel or modify my order?</h4>
+            <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-content" *ngIf="activeFaq === 4">
+            <p>A: Orders can be modified or canceled within 24 hours of purchase. Please contact our support team for assistance.</p>
+        </div>
+    </div>
+  </div>

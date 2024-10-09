@@ -7,6 +7,8 @@ import { AdminProductsComponent } from './admin-products/admin-products.componen
 import { AddProductComponent } from './add-product/add-product.component';
 import { UpdateProductComponent } from './update-product/update-product.component';
 import { AuthGuard } from './services/AuthGuard/auth-guard.service';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { ProductsPageComponent } from './products-page/products-page.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -17,4 +19,6 @@ export const routes: Routes = [
     { path: 'add-product', component: AddProductComponent,canActivate: [AuthGuard],data: { expectedRole: 'ADMIN' } },
     { path: 'admin-products', component: AdminProductsComponent, canActivate: [AuthGuard],data: { expectedRole: 'ADMIN' }},
     { path: 'update-product/:id', component: UpdateProductComponent,canActivate: [AuthGuard],data: { expectedRole: 'ADMIN' } }, 
+    { path: 'products/:id', component: ProductDetailComponent },
+    { path: 'products-page/:category', component: ProductsPageComponent},
 ];

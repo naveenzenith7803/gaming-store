@@ -13,5 +13,8 @@ import { ProductDisplayComponent } from '../product-display/product-display.comp
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
- 
+  exploreMore(gameName: string) {
+    console.log(`Exploring more about ${gameName}`);
+  }
+  
 }

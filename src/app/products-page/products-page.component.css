@@ -1,0 +1,105 @@
+body {
+    background-color: black;
+    color: white;
+    margin: 0; /* Remove default margin */
+    height: 100vh; /* Ensure full height */
+}
+
+p{
+    color: white;
+}
+
+.container-fluid {
+    padding: 20px;
+    padding-top: 80px; /* Add padding to prevent content from going behind the navbar */
+    background-color: black; /* Set background for the container */
+    min-height: calc(100vh - 80px); /* Adjust min-height to account for navbar height */
+}
+
+h1 {
+    text-align: center; /* Center the heading */
+    margin-bottom: 20px; /* Space below the heading */
+    font-size: 2rem; /* Adjust font size */
+    color: white;
+}
+
+.all-products-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping of rows */
+    justify-content: center; /* Center align the products */
+}
+
+.product-card {
+    width: calc(25% - 20px); /* 25% width minus margin for four items per row */
+    margin: 10px; /* Margin around the cards */
+    transition: transform 0.3s, background-color 0.3s;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #444; /* Card background */
+    position: relative; /* Allow positioning of like button */
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+    background-color: #555;
+}
+
+.product-info {
+    padding: 10px; /* Space around text */
+    text-align: center; /* Center text */
+}
+
+.product-card h3 {
+    font-size: 1rem; /* Adjust font size */
+    margin: 10px 0; /* Space around title */
+    color: white; /* Set text color to white */
+    overflow: hidden; /* Hide overflow text */
+    display: -webkit-box; /* For WebKit browsers */
+    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-box-orient: vertical; /* Set orientation */
+    text-overflow: ellipsis; /* Show ellipsis */
+}
+
+.add-to-cart {
+    margin-top: 10px;
+    background-color: #007bff; /* Primary button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px; /* Padding for button */
+}
+
+.like-button {
+    position: absolute; /* Positioning icon */
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    color: white; /* Set heart color to white */
+    font-size: 1.5rem; /* Adjust icon size */
+    cursor: pointer;
+    transition: color 0.3s; /* Transition for hover effect */
+}
+
+.like-button:hover {
+    color: red; /* Change color to red on hover */
+}
+
+@media (max-width: 768px) {
+    .product-card {
+        width: calc(50% - 20px); /* 2 products per row on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .product-card {
+        width: 100%; /* 1 product per row on mobile */
+    }
+}

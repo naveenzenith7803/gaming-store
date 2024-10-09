@@ -1,0 +1,202 @@
+.background-image {
+    background-image: url('../../assets/register-background.jpg'); /* Replace with your background image */
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh; /* Full height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  .product-detail-container {
+    display: flex;
+    align-items: flex-start; /* Align items to the start for better spacing */
+    padding: 20px; /* Space around the container */
+    padding-top: 80px; /* Add padding at the top to avoid navbar overlap */
+    background-color: black; /* Background color */
+    color: white; /* Text color */
+    /* border-radius: 8px; */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+}
+
+.product-image {
+    width: 400px; /* Fixed width for the image */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Rounded corners */
+    margin-right: 20px; /* Space between image and text */
+    /* border: 2px solid #007bff; */
+}
+
+.product-info {
+    max-width: 600px; /* Limit width of product info */
+}
+
+.product-info h1 {
+    font-size: 2rem; /* Adjust title size */
+    margin: 0; /* Remove default margin */
+    font-weight: bold; /* Bold title */
+}
+
+.product-price {
+    font-size: 1.5rem; /* Price size */
+    margin: 10px 0; /* Space around price */
+    color: #28a745; /* Green color for price */
+    font-weight: 600; /* Bold weight for emphasis */
+}
+
+.product-description {
+    margin: 15px 0; /* Space around description */
+    line-height: 1.6; /* Increased line height for readability */
+    color: #ccc; /* Softer color for description */
+}
+
+.quantity-container {
+    margin-bottom: 15px; /* Space below quantity selector */
+    display: flex;
+    align-items: center; /* Center items vertically */
+}
+
+.quantity-btn {
+    background-color: #007bff; /* Primary button color */
+    color: white; /* Text color */
+    border: none;
+    border-radius: 30px;
+    padding: 10px 15px; /* Padding for button */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; /* Add transform for hover effect */
+}
+
+.quantity-btn:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.quantity-input {
+    width: 60px; /* Set a width for the input */
+    padding: 8px; /* Padding for input */
+    margin: 0 10px; /* Space between input and buttons */
+    border: 1px solid #ccc; /* Border for input */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    text-align: center; /* Center text */
+}
+
+.button-container {
+    display: flex; /* Align buttons side by side */
+    gap: 10px; /* Space between buttons */
+}
+
+.add-to-cart {
+    background-color: #007bff; /* Green color for add to cart */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px; /* Padding for button */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; /* Added transform for hover effect */
+}
+
+.add-to-cart:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.wishlist-button {
+    background-color: white; /* Initial button color */
+    color: black; /* Text color */
+    border-radius: 5px;
+    padding: 10px 20px; /* Padding for button */
+    cursor: pointer;
+    display: flex; /* Align icon and text */
+    align-items: center; /* Center items vertically */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.wishlist-button i {
+    margin-right: 5px; /* Space between heart icon and text */
+    color: red; /* Heart color (filled) */
+}
+
+.wishlist-button:hover {
+    background-color: red; /* Change background on hover */
+    color: white; /* Change text color on hover */
+    transform: scale(1.05);
+}
+
+.wishlist-button:hover i {
+    color: white; /* Change heart color on hover */
+}
+
+/* -------------------------- */
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.7); /* Black with transparency */
+    backdrop-filter: blur(10px); /* Blur effect */
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    text-align: center; /* Center text horizontally */
+    border-radius: 10px; /* Rounded corners */
+}
+
+.popup.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup p {
+    margin: 0; /* Remove default margin */
+    color: white; /* Text color */
+}
+
+/* ------------------------------------------------------ */
+.faqs-container {
+    background: #000; /* Black background for the FAQs section */
+    color: #fff; /* White text color */
+    padding: 20px; 
+}
+
+.faq-item {
+    background: #fff; /* White background for each FAQ item */
+    color: #333; /* Dark text for FAQ items */
+    border-radius: 8px; /* Rounded corners for FAQ items */
+    margin-bottom: 10px; /* Space between FAQ items */
+    transition: background 0.3s; /* Smooth background transition */
+}
+
+.faq-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer; /* Indicate clickable items */
+    padding: 10px; /* Padding inside the FAQ header */
+}
+
+.faq-header h4 {
+    margin: 0; /* Remove default margin */
+    font-size: 1.2em; /* Adjusted size for question heading */
+}
+
+.faq-toggle {
+    font-size: 20px; /* Adjusted size for toggle icon */
+    color: #333; /* Dark color for toggle */
+    transition: transform 0.3s; /* Smooth transition for rotation */
+}
+
+/* Rotate the plus sign when the FAQ item is open */
+.faq-item.open .faq-toggle {
+    transform: rotate(45deg); /* Rotate 45 degrees */
+}
+
+.faq-content {
+    margin-top: 10px; /* Space above the content */
+    padding: 10px; /* Padding inside the content area */
+    font-size: 0.9em; /* Adjusted size for answer content */
+}

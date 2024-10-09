@@ -5,7 +5,7 @@
       <button class="arrow-left" (click)="scrollLeft(categoryContainer)">&#10094;</button>
       <div class="product-category" #categoryContainer>
         <div class="product-card" *ngFor="let product of getProductsByCategory(category.id)">
-          <img [src]="'https://via.placeholder.com/150'" alt="{{ product.name }}" />
+          <img src="../../assets/{{product.imageUrl}}" alt="{{ product.name }}" />
           <h3>{{ product.name }}</h3>
           <div class="info-overlay">{{ product.description }}</div>
           <button class="add-to-cart" (click)="addToCart(product)">Add to Cart</button>
